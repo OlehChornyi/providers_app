@@ -6,9 +6,11 @@ import 'package:providers_app/screens/home_screen.dart';
 // import 'package:providers_app/providers/riverpod_provider.dart';
 // import 'package:get_it/get_it.dart';
 // import 'package:providers_app/providers/get_it_provider.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
-import 'package:providers_app/providers/mob_x_provider.dart';
+// import 'package:flutter_mobx/flutter_mobx.dart';
+// import 'package:provider/provider.dart';
+// import 'package:providers_app/providers/mob_x_provider.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:providers_app/providers/redux_provider.dart';
 
 //3. GETIT
 // Initialize GetIt
@@ -41,10 +43,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //4. MOBX
-    return MultiProvider(
-        providers: [
-          Provider<CounterStore>(create: (_) => CounterStore()),
-        ],
+    // return MultiProvider(
+    //     providers: [
+    //       Provider<CounterStore>(create: (_) => CounterStore()),
+    //     ],
+    //5. REDUX
+    return StoreProvider<int>(
+      store: store,
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(

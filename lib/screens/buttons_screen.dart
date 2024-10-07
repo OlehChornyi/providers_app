@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 // import 'package:providers_app/providers/riverpod_provider.dart';
 // import 'package:get_it/get_it.dart';
 // import 'package:providers_app/providers/get_it_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:providers_app/providers/mob_x_provider.dart';
+// import 'package:provider/provider.dart';
+// import 'package:providers_app/providers/mob_x_provider.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:providers_app/providers/redux_provider.dart';
 
 //1. PROVIDER
 // class ButtonsScreen extends StatelessWidget {
@@ -21,7 +23,7 @@ class ButtonsScreen extends StatelessWidget {
     // Get an instance of CounterService
     // final counterService = GetIt.I<CounterService>();
     //4. MOBX
-        final counterStore = Provider.of<CounterStore>(context);
+        // final counterStore = Provider.of<CounterStore>(context);
 
 
     return Scaffold(
@@ -36,7 +38,7 @@ class ButtonsScreen extends StatelessWidget {
             const Text(
               'Choose what to do: increment or decrement',
             ),
-            ElevatedButton(
+            // ElevatedButton(
                 // onPressed: () {
                 //1. PROVIDER
                 // context.read<CounterProvider>().increment();
@@ -47,9 +49,9 @@ class ButtonsScreen extends StatelessWidget {
                 //3. GETIT
                 // onPressed: counterService.increment,
                 //4. MOBX
-                onPressed: counterStore.increment, 
-                child: const Text('Increment')),
-            ElevatedButton(
+            //     onPressed: counterStore.increment, 
+            //     child: const Text('Increment')),
+            // ElevatedButton(
                 // onPressed: () {
                 //1. PROVIDER
                 // context.read<CounterProvider>().decrement();
@@ -59,8 +61,32 @@ class ButtonsScreen extends StatelessWidget {
                 //3. GETIT
                 // onPressed: counterService.decrement,
                 // 4. MOBX
-                onPressed: counterStore.decrement,
-                child: const Text('Decrement')),
+                // onPressed: counterStore.decrement,
+                // child: const Text('Decrement')),
+                //5. REDUX
+                StoreConnector<int, VoidCallback>(
+              converter: (store) {
+                return () => store.dispatch(IncrementAction()); // Dispatch increment
+              },
+              builder: (context, incrementCallback) {
+                return ElevatedButton(
+                  onPressed: incrementCallback,
+                  child: Text('Increment'),
+                );
+              },
+            ),
+            SizedBox(width: 20),
+            StoreConnector<int, VoidCallback>(
+              converter: (store) {
+                return () => store.dispatch(DecrementAction()); // Dispatch decrement
+              },
+              builder: (context, decrementCallback) {
+                return ElevatedButton(
+                  onPressed: decrementCallback,
+                  child: Text('Decrement'),
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -7,9 +7,10 @@ import 'package:providers_app/screens/buttons_screen.dart';
 // import 'package:providers_app/providers/riverpod_provider.dart';
 // import 'package:get_it/get_it.dart';
 // import 'package:providers_app/providers/get_it_provider.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
-import 'package:providers_app/providers/mob_x_provider.dart';
+// import 'package:flutter_mobx/flutter_mobx.dart';
+// import 'package:provider/provider.dart';
+// import 'package:providers_app/providers/mob_x_provider.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 //1. PROVIDER
 // class MyHomePage extends StatefulWidget {
@@ -40,7 +41,7 @@ class MyHomePage extends StatelessWidget {
     // Get an instance of CounterService
     // final counterService = GetIt.I<CounterService>();
     //4. MOBX
-    final counterStore = Provider.of<CounterStore>(context);
+    // final counterStore = Provider.of<CounterStore>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -79,11 +80,21 @@ class MyHomePage extends StatelessWidget {
           //     );
           //   },
           // ),
-          Observer(
-            builder: (_) {
+          //4. MOBX
+          // Observer(
+          //   builder: (_) {
+          //     return Text(
+          //       'Counter: ${counterStore.counter}',
+          //       style: TextStyle(fontSize: 36),
+          //     );
+          //   },
+          // ),
+          StoreConnector<int, int>(
+            converter: (store) => store.state, // Access the current state
+            builder: (context, counter) {
               return Text(
-                'Counter: ${counterStore.counter}',
-                style: TextStyle(fontSize: 36),
+                'Counter: $counter',
+                style: const TextStyle(fontSize: 36),
               );
             },
           ),
