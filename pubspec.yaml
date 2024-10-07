@@ -15,12 +15,16 @@ dependencies:
   provider: ^6.1.2
   flutter_riverpod: ^2.4.10
   get_it: ^8.0.0
+  mobx: ^2.0.0
+  flutter_mobx: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  build_runner: ^2.0.0
+  mobx_codegen: ^2.0.0
 
 flutter:
 

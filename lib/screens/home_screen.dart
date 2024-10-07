@@ -5,8 +5,11 @@ import 'package:providers_app/screens/buttons_screen.dart';
 // import 'package:providers_app/providers/provider_provider.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:providers_app/providers/riverpod_provider.dart';
-import 'package:get_it/get_it.dart';
-import 'package:providers_app/providers/get_it_provider.dart';
+// import 'package:get_it/get_it.dart';
+// import 'package:providers_app/providers/get_it_provider.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:providers_app/providers/mob_x_provider.dart';
 
 //1. PROVIDER
 // class MyHomePage extends StatefulWidget {
@@ -35,7 +38,9 @@ class MyHomePage extends StatelessWidget {
   //3. GETIT
   Widget build(BuildContext context) {
     // Get an instance of CounterService
-    final counterService = GetIt.I<CounterService>();
+    // final counterService = GetIt.I<CounterService>();
+    //4. MOBX
+    final counterStore = Provider.of<CounterStore>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,20 +64,29 @@ class MyHomePage extends StatelessWidget {
           // //   // '${counterProvider.counter}',
           // //   //2. RIVERPOD
           // //   'Counter: $counter',
-          //           //3. GETIT 
+          //           //3. GETIT
           // '${counterService.counter}',
           //   style: Theme.of(context).textTheme.headlineMedium,
           // ),
-                              //3. GETIT 
-          ValueListenableBuilder<int>(
-          valueListenable: counterService.counter, // Listen to changes in counter
-          builder: (context, counter, _) {
-            return Text(
-              'Counter: ${counter}',
-              style: TextStyle(fontSize: 36),
-            );
-          },
-        ),
+          //3. GETIT
+          // ValueListenableBuilder<int>(
+          //   valueListenable:
+          //       counterService.counter, // Listen to changes in counter
+          //   builder: (context, counter, _) {
+          //     return Text(
+          //       'Counter: ${counter}',
+          //       style: TextStyle(fontSize: 36),
+          //     );
+          //   },
+          // ),
+          Observer(
+            builder: (_) {
+              return Text(
+                'Counter: ${counterStore.counter}',
+                style: TextStyle(fontSize: 36),
+              );
+            },
+          ),
         ],
         //   );
         // },
