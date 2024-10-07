@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:providers_app/providers/provider_provider.dart';
+// import 'package:provider/provider.dart';
+// import 'package:providers_app/providers/provider_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:providers_app/providers/riverpod_provider.dart';
 
-class ButtonsScreen extends StatefulWidget {
+//1. PROVIDER
+// class ButtonsScreen extends StatelessWidget {
+//2. RIVERPOD
+class ButtonsScreen extends ConsumerWidget {
   const ButtonsScreen({super.key});
 
   @override
-  State<ButtonsScreen> createState() => _ButtonsScreenState();
-}
-
-class _ButtonsScreenState extends State<ButtonsScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -26,13 +26,16 @@ class _ButtonsScreenState extends State<ButtonsScreen> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  context.read<CounterProvider>().increment();
+                  // context.read<CounterProvider>().increment();
+                  ref.read(counterProvider.notifier).increment();
+
                   ;
                 },
                 child: const Text('Increment')),
             ElevatedButton(
                 onPressed: () {
-                  context.read<CounterProvider>().decrement();
+                  // context.read<CounterProvider>().decrement();
+                  ref.read(counterProvider.notifier).decrement();
                 },
                 child: const Text('Decrement')),
           ],
