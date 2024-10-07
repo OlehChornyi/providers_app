@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:providers_app/providers/provider_provider.dart';
 
 class ButtonsScreen extends StatefulWidget {
   const ButtonsScreen({super.key});
@@ -8,7 +10,6 @@ class ButtonsScreen extends StatefulWidget {
 }
 
 class _ButtonsScreenState extends State<ButtonsScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +24,17 @@ class _ButtonsScreenState extends State<ButtonsScreen> {
             const Text(
               'Choose what to do: increment or decrement',
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('Increment')),
-            ElevatedButton(onPressed: () {}, child: const Text('Decrement')),
+            ElevatedButton(
+                onPressed: () {
+                  context.read<CounterProvider>().increment();
+                  ;
+                },
+                child: const Text('Increment')),
+            ElevatedButton(
+                onPressed: () {
+                  context.read<CounterProvider>().decrement();
+                },
+                child: const Text('Decrement')),
           ],
         ),
       ),
